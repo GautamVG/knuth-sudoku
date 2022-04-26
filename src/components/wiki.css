@@ -24,9 +24,61 @@ body{
     padding: 1rem;
 }
 
-.inner p{
+.outer p, .inner p{
+    padding: 1rem;
     color: #656565;
 }
+
+
+.time{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    margin: 2rem;
+}
+
+.best{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    padding: .5rem 1rem ;
+    background-color: rgba(163, 255, 178, 0.979) ;
+    color: #656565;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.worst{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    padding: .5rem 1rem ;
+    background-color: rgba(255, 147, 147, 0.979) ;
+    color: #656565;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.space{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    padding: .5rem 1rem ;
+    background-color: rgba(255, 152, 238, 0.979) ;
+    color: #656565;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+
+
+
 
 .second-block{
     display: flex;
@@ -38,8 +90,15 @@ body{
     margin: auto;
 }
 
-.img-div{
-    width: 50%;
+.img-div {
+    width: 70%;
     height: 100%;
-    position: relative;
+}
+.img-div img{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+span{
+    font-weight: bold;
 }
