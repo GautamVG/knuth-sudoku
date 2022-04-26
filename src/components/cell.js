@@ -6,6 +6,10 @@ export default function(props) {
         fontSize: '3rem',
         width: '100%',
         outline: 'none',
+
+        '&:disabled': {
+            backgroundColor: 'red'
+        }
     }}
 
     maxLength={1}

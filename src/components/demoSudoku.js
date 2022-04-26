@@ -22,7 +22,7 @@ export default function(props) {
                     <Grid item xs={4}>
                         <SudokuCell 
                             editable={props.editable}
-                            value={cell}
+                            value={props.showSolution ? props.solution[i] : cell}
                             onChange={val => {
                                 if ((Boolean(val) || val == '') && !checkCellCollision(i, val)) {
                                     let newCells = [...cells];
