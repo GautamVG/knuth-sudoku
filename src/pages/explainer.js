@@ -1,6 +1,6 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-import { Typography, IconButton, Button, Container, Grid, Card, CardHeader, Stack, ButtonGroup, CardContent } from '@mui/material';
+import { Box, Typography, IconButton, Button, Container, Grid, Card, CardHeader, Stack, ButtonGroup, CardContent } from '@mui/material';
 import { SkipNext, FastForward, Done } from '@mui/icons-material';
 
 import ConstraintMatrix from '../components/constraintMatrix';
@@ -12,55 +12,44 @@ export default function(props) {
     const timer = useRef();
     const [currentStep, setCurrentStep] = useState(0);
 
-    const handleNext = () => setCurrentStep(currentStep + 1);
-
-    const checkAndSkipNext = () => {
-        console.log(props.explanation.steps[currentStep].code)
-        if (props.explanation.steps[currentStep].code == 'validPartialSolution') {
-            clearTimeout(timer.current);
-        } else {
-            handleNext();
-        }
-    }
+    const handleNext = () => setCurrentStep(prevStep => Math.min(prevStep + 1, props.explanation.steps.length-1));
 
     const handleFastForward = () => {
-        timer.current = setInterval(checkAndSkipNext, 200);
+        timer.current = setInterval(handleNext, 100);
     }
 
-    return <Container maxWidth='xl'>
-        <Stack>
+    useEffect(() => {
+        let currentCode = props.explanation.steps[currentStep].code;
+        // if (currentCode == 'validPartialSolution' || currentCode == 'invalidPartialSolution' || currentCode == 'addedPartialSolution')
+        if (currentCode == 'endSearch')
+            clearInterval(timer.current);
+    }, [currentStep]);
+
+    return (
+        <Stack p={2} gap={2} alignItems='center'>
             <Typography variant="h2">Demo</Typography>
             <Typography variant="h4" mb={2}>Solving the constraint matrix</Typography>
-            <Grid container spacing={2}>
-                <Grid item xs={8}>
-                    <Card>
-                        <CardHeader title='Constraint Matrix (27 x 27)' />
-                        <CardContent>
-                            <ConstraintMatrix />
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item xs={4}>
-                    <Card mb={2}>
-                        <CardHeader title='Partial Solution' />
-                        <CardContent>
-                            <PartialSolution />
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardHeader title='All Solutions' />
-                        <CardContent>
-                            <CompleteSolution />
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item xs={8}>
-                    <Caption query={props.explanation.steps[currentStep]} />
-                </Grid>
-                <Grid item xs={4}>
-                    <Card>
-                        <CardHeader title={`Step: ${currentStep + 1}`} />
-                        <CardContent>
+
+            {/* Constraint Matrix */}
+            <Box mb={2} sx={{width: '100%'}}>
+                <ConstraintMatrix 
+                    matrix={props.explanation.sparseConstraintMatrix}
+                    constraintLabels={props.explanation.constraintLabels}
+                    rowLabels={props.explanation.rowLabels}
+                    query={props.explanation.steps[currentStep]}
+                />
+            </Box>
+
+            <Stack direction='row' gap={2} sx={{width: '75%'}}>
+                {/* Control Panel */}
+                <Card sx={{flex: '1 1 0'}}>
+                    <CardHeader 
+                        title={`Step: ${currentStep + 1}`} 
+                        subheader={`Total steps: ${props.explanation.steps.length}`} 
+                    />
+                    <CardContent>
+                        <Stack alignItems='center'>
+                            <Caption query={props.explanation.steps[currentStep]} />
                             <ButtonGroup variant='contained'>
                                 <IconButton onClick={handleNext}>
                                     <SkipNext />
@@ -72,10 +61,32 @@ export default function(props) {
                                     <Done />
                                 </IconButton>
                             </ButtonGroup>
-                        </CardContent>
-                    </Card>
-                </Grid>
-            </Grid>
+                        </Stack>
+                    </CardContent>
+                </Card>
+
+                {/* Partial Solution Display */}
+                <Card mb={2} sx={{flex: '1 1 0'}}>
+                    <CardHeader title='Partial Solution' />
+                    <CardContent>
+                        <PartialSolution 
+                            query={props.explanation.steps[currentStep]} 
+                            rowIndexParser={i => props.explanation.rowLabels[i]}
+                        />
+                    </CardContent>
+                </Card>
+
+                {/* Complete Solution Display */}
+                <Card sx={{flex: '1 1 0'}}>
+                    <CardHeader title='All Solutions' />
+                    <CardContent>
+                        <CompleteSolution
+                            query={props.explanation.steps[currentStep]} 
+                            rowIndexParser={i => props.explanation.rowLabels[i]}
+                        />
+                    </CardContent>
+                </Card>
+            </Stack>
         </Stack>
-    </Container>
+    )
 }

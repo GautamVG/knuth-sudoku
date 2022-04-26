@@ -74,18 +74,3 @@ export default class DemoSudoku {
         return outputs;
     }
 }
-
-// function printConstraintMatrix() {
-//     let x = 27; let y = 27;
-//     for (let row of columnsOfOnes) {
-//         let str = '';
-//         for (let i = 0; i < x; i++) {
-//             if (row.includes(i)) {
-//                 str += '1 ';
-//             } else {
-//                 str += '  ';
-//             }
-//         }
-//         console.log(str)
-//     }
-// }

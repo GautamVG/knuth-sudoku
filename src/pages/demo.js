@@ -32,11 +32,11 @@ export default function() {
 
     const handleSudokuFinish = () => {
         let data = engineOutput.current.solutions;
+        setExplaining(false);
         if (data.length > 0) {
             data.forEach(d => sudokuSolutions.current.push(new Array(9)));
             data.forEach((d, i) => d.forEach(({x, y, val}) => sudokuSolutions.current[i][ x + 3*y ] = val));
             setShowSolution(true);
-            setExplaining(false);
         }
     }
 
