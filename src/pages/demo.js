@@ -3,14 +3,14 @@ import { Typography, Container, Button, Stack, Paper } from "@mui/material";
 
 import Explainer from './explainer';
 
-import DemoSudoku from '../components/demoSudoku';
+import DemoSudoku from '../components/smallSudokuBoard';
 
-import DemoSudokuEngine from '../algo/DemoSudoku';
+import SudokuEngine from '../algo/SmallSudoku';
 
 export default function() {
     let sudokuInput = useRef([]);
     let sudokuSolutions = useRef([]);
-    let engine = useRef(new DemoSudokuEngine());
+    let engine = useRef(new SudokuEngine());
     let engineOutput = useRef();
 
     const [explaining, setExplaining] = useState(false);

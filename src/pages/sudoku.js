@@ -1,14 +1,14 @@
 import { useState, useRef } from "react";
 import { Typography, Container, Button, Stack, Paper } from "@mui/material";
 
-import DemoSudoku from '../components/demoSudoku';
+import SudokuBoard from '../components/bigSudokuBoard';
 
-import DemoSudokuEngine from '../algo/DemoSudoku';
+import SudokuEngine from '../algo/BigSudoku';
 
 export default function() {
     let sudokuInput = useRef([]);
     let sudokuSolutions = useRef([]);
-    let engine = useRef(new DemoSudokuEngine());
+    let engine = useRef(new SudokuEngine());
 
     const [showSolution, setShowSolution] = useState(false);
     const [currentSolution, setCurrentSolution] = useState(0);
@@ -18,8 +18,8 @@ export default function() {
         data.forEach((val, i) => {
             if (val != '') {
                 sudokuInput.current.push({
-                    x: i % 3,
-                    y: Math.floor(i/3),
+                    x: i % 9,
+                    y: Math.floor(i/9),
                     val: val
                 })
             }
@@ -28,14 +28,14 @@ export default function() {
 
     const handleSudokuFinish = (data) => {
         if (data.length > 0) {
-            data.forEach(d => sudokuSolutions.current.push(new Array(9)));
-            data.forEach((d, i) => d.forEach(({x, y, val}) => sudokuSolutions.current[i][ x + 3*y ] = val));
+            data.forEach(d => sudokuSolutions.current.push(new Array(81)));
+            data.forEach((d, i) => d.forEach(({x, y, val}) => sudokuSolutions.current[i][ x + 9*y ] = val));
             setShowSolution(true);
         }
     }
 
     const solveSudoku = () => {
-        let solutions = engine.current.solve(sudokuInput.current, false);
+        let solutions = engine.current.solve(sudokuInput.current);
         handleSudokuFinish(solutions);
     }
 
@@ -46,7 +46,7 @@ export default function() {
                 <Typography variant="h4" mb={1}>This section is a Sudoku Solver</Typography>
                 <Typography variant='h6' mb={1}>Standard rules apply. Enter any combination of numbers you like and press solve</Typography>
 
-                <DemoSudoku 
+                <SudokuBoard 
                     editable={!showSolution} 
                     onChange={handleSudokuDataChange}
                     showSolution={showSolution}
