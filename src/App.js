@@ -14,7 +14,7 @@ function App() {
 		<BrowserRouter>
 			<Routes>
 				<Route path='/' element={
-					<Navigate to='demo' replace />
+					<Navigate to='wiki' replace />
 				} />
 				<Route path='demo' element={<Demo />} />
 				<Route path='sudoku' element={<Sudoku />} />

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { Box, Typography, IconButton, Button, Container, Grid, Card, CardHeader, Stack, ButtonGroup, CardContent } from '@mui/material';
-import { SkipNext, FastForward, Done } from '@mui/icons-material';
+import { SkipNext, FastForward, Done, Pause } from '@mui/icons-material';
 
 import ConstraintMatrix from '../components/constraintMatrix';
 import PartialSolution from '../components/partialSolution';
@@ -56,6 +56,9 @@ export default function(props) {
                                 </IconButton>
                                 <IconButton onClick={handleFastForward}>
                                     <FastForward />
+                                </IconButton>
+                                <IconButton onClick={() => {clearInterval(timer.current)}}>
+                                    <Pause />
                                 </IconButton>
                                 <IconButton onClick={props.onFinish}>
                                     <Done />

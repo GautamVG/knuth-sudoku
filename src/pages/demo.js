@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { Typography, Container, Button, Stack, Paper } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import Explainer from './explainer';
 
@@ -51,7 +52,7 @@ export default function() {
                 <Stack alignItems='center' gap={2}>
                     <Typography variant="h2">Demo</Typography>
                     <Typography variant="h4" mb={1}>This section is a demonstration on Knuth's Algorithm X</Typography>
-                    <Typography variant='h6'>Only 3x3 Grid is used. Three numbers (0, 1 and 2) should be used. Numbers should not repeat in the same row or column</Typography>
+                    <Typography variant='h6'>Only 3x3 Grid is used. Three numbers (1, 2 and 3) should be used. Numbers should not repeat in the same row or column</Typography>
                     <Typography variant='h6' mb={1}>Enter any combination of numbers you like and press start</Typography>
 
                     <DemoSudoku 
@@ -80,6 +81,10 @@ export default function() {
                             </Stack>
                         </Stack>
                     }
+
+                    <Link to='/'>
+                        <Button>Home</Button>
+                    </Link>
                 </Stack>
             </Container>
         }

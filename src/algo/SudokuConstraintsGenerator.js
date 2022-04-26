@@ -48,11 +48,6 @@ function FourthConstraint(offset) {
     return arr;
 }
 
-// console.log(FirstConstraint().length);
-// console.log(SecondConstraint().length);
-// console.log(ThirdConstraint().length);
-// console.log(FourthConstraint().length);
-
 export default function getSparseMatrix() {
     let first = FirstConstraint(0);
     let second = SecondConstraint(81);

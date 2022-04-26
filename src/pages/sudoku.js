@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { Typography, Container, Button, Stack, Paper } from "@mui/material";
+import { Link } from 'react-router-dom';
 
 import SudokuBoard from '../components/bigSudokuBoard';
 
@@ -27,15 +28,18 @@ export default function() {
     }
 
     const handleSudokuFinish = (data) => {
+        setShowSolution(true);
         if (data.length > 0) {
             data.forEach(d => sudokuSolutions.current.push(new Array(81)));
             data.forEach((d, i) => d.forEach(({x, y, val}) => sudokuSolutions.current[i][ x + 9*y ] = val));
-            setShowSolution(true);
         }
     }
 
     const solveSudoku = () => {
-        let solutions = engine.current.solve(sudokuInput.current);
+        let solutions = [];
+        try {
+            solutions = engine.solve(sudokuInput.current);
+        } catch { }
         handleSudokuFinish(solutions);
     }
 
@@ -44,34 +48,29 @@ export default function() {
             <Stack alignItems='center' gap={2}>
                 <Typography variant="h2">Sudoku Solver</Typography>
                 <Typography variant="h4" mb={1}>This section is a Sudoku Solver</Typography>
-                <Typography variant='h6' mb={1}>Standard rules apply. Enter any combination of numbers you like and press solve</Typography>
 
                 <SudokuBoard 
-                    editable={!showSolution} 
-                    onChange={handleSudokuDataChange}
                     showSolution={showSolution}
-                    solution={sudokuSolutions.current[currentSolution]}
+                    solution={sudokuSolutions.current}
                 />
 
                 {!showSolution && <Button variant="contained" size='large' sx={{mt: 4}} onClick={solveSudoku}>Solve</Button>}
 
                 {showSolution &&
                     <Stack gap={2} alignItems='center'>
-                        <Typography variant="body1">Number of solutions: {sudokuSolutions.current.length}</Typography>
                         <Stack direction='row' gap={2}>
                             <Button 
                                 variant='outlined'
-                                onClick={() => {setCurrentSolution(currentSolution + 1)}}
-                                disabled={currentSolution === sudokuSolutions.current.length - 1}
-                            >Next</Button>
-                            <Button 
-                                variant='outlined'
-                                onClick={() => {setCurrentSolution(currentSolution - 1)}}
-                                disabled={currentSolution === 0}
-                            >Prev</Button>
+                                sx={{mt: 4}}
+                                onClick={() => {setShowSolution(false)}}
+                            >New</Button>
                         </Stack>
                     </Stack>
                 }
+
+                <Link to='/'>
+                    <Button>Home</Button>
+                </Link>
             </Stack>
         </Container>
     </>

@@ -1,19 +1,22 @@
 import { Box } from "@mui/material";
-import { useEffect, useState } from "react";
-
-import SudokuCell from './cell';
+import { useEffect, useState, useRef } from "react";
 
 import RandomPuzzle from '../algo/Puzzles';
+import collisionTester from './collisionTester';
 
 export default function(props) {
-
+    let solution = useRef([]);
     const [cells, setCells] = useState([]);
 
     useEffect(() => {
         // setCells(new Array(81).fill(''));
-        setCells(RandomPuzzle());
+        if (props.showSolution == false) {
+            let puzzle = RandomPuzzle();
+            setCells(puzzle.board);
+            solution.current = collisionTester[puzzle.index];
+        }
 
-    }, []);
+    }, [props.showSolution]);
 
     const checkCellCollision = () => {
         return false;
@@ -27,20 +30,12 @@ export default function(props) {
         }}>
             {
                 cells.map((cell, i) => (
-                    <Box>
-                        <SudokuCell 
-                            editable={props.editable}
-                            value={props.showSolution ? props.solution[i] : cell}
-                            onChange={val => {
-                                console.log(val)
-                                if ((Boolean(val) || val == '' || val === NaN) && !checkCellCollision(i, val)) {
-                                    let newCells = [...cells];
-                                    newCells[i] = val;
-                                    setCells(newCells);
-                                    props.onChange(newCells);
-                                }
-                            }} 
-                        />
+                    <Box sx={{
+                        textAlign: 'center',
+                        fontSize: '3rem',
+                        border: '1px solid black'
+                    }}>
+                        {props.showSolution ? solution.current[i] : cell}
                     </Box>
                 ))
             }
