@@ -85,7 +85,7 @@ export default function() {
         }
         {explaining && 
             <>
-                <Explainer onFinish={handleSudokuFinish} />
+                <Explainer onFinish={handleSudokuFinish} explanation={engineOutput.current.explanation} />
             </>
         }
     </>

@@ -32,8 +32,8 @@ export default class DemoSudoku {
             [8, 16, 25],
             [8, 17, 26],
         ];
-        this.constraintLabels = [];
-        this.rowLabels = [];
+        this.constraintLabels = ['R1C1', 'R1C2', 'R1C3', 'R2C1', 'R2C2', 'R2C3', 'R3C1', 'R3C2', 'R3C3', 'R1#1', 'R1#2', 'R1#3', 'R2#1', 'R2#2', 'R2#3', 'R3#1', 'R3#2', 'R3#3', 'C1#1', 'C1#2', 'C1#3', 'C2#1', 'C2#2', 'C2#3', 'C3#1', 'C3#2', 'C3#3'];
+        this.rowLabels = ['R1C1#1', 'R1C1#2', 'R1C1#3', 'R1C2#1', 'R1C2#2', 'R1C2#3', 'R1C3#1', 'R1C3#2', 'R1C3#3', 'R2C1#1', 'R2C1#2', 'R2C1#3', 'R2C2#1', 'R2C2#2', 'R2C2#3', 'R2C3#1', 'R2C3#2', 'R2C3#3', 'R3C1#1', 'R3C1#2', 'R3C1#3', 'R3C2#1', 'R3C2#2', 'R3C2#3', 'R3C3#1', 'R3C3#2', 'R3C3#3'];
 
         this.engine = new DLX(this.numberOfConstraints);
         this.engine.loadSparseContraintMatrix(this.sparseConstraintMatrix);
