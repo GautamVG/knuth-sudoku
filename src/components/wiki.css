@@ -1,0 +1,45 @@
+body{
+    background-color: aliceblue;
+}
+.outer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    border: .087rem solid white;
+    border-radius: 12px;
+    background-color: rgba(205, 248, 255, 0.979) ;
+    z-index: 1;
+    margin: 3rem auto;
+    transition: all .5s ease;
+}
+
+.outer:hover{
+    box-shadow: 0px 12px 15px 1px rgba(0, 225, 255, 0.5);
+    transition: all .5s ease;
+}
+
+.inner{
+    padding: 1rem;
+}
+
+.inner p{
+    color: #656565;
+}
+
+.second-block{
+    display: flex;
+    flex-wrap:wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+}
+
+.img-div{
+    width: 50%;
+    height: 100%;
+    position: relative;
+}
