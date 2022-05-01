@@ -1,4 +1,5 @@
 import React from "react";
+import { Chip } from "@mui/material";
 import "./wiki.css";
 
 function wiki() {
@@ -20,13 +21,19 @@ function wiki() {
       </div>
         <div className="time">
             <div className="best">
-                <h3>Best Time</h3>
+                <h3>Optimized Time:
+                  <Chip label='O(2^(N/3))' sx={{fontSize: 20}} />
+                </h3>
             </div>
             <div className="worst">
-                <h3>Worst Time</h3>
+                <h3>Worst Time:
+                  <Chip label='O(4^(N/3))' sx={{fontSize: 20}} />
+                </h3>
             </div>
             <div className="space">
-                <h3>Space Time</h3>
+                <h3>Space Complexity:
+                  <Chip label='O(N^2)' sx={{fontSize: 20}} />
+                </h3>
             </div>
         </div>
       <div className="second-block">
